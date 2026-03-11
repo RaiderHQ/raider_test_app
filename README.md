@@ -1,97 +1,85 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Raider Test App
 
-# Getting Started
+A React Native demo app designed for mobile test automation practice. Built as a companion to [ruby_raider](https://github.com/RubyRaider/ruby_raider) and [raider_desktop](https://github.com/RubyRaider/raider_desktop).
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
-## Step 1: Start Metro
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Features
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **Product Catalog** — Browse products with sorting (name/price)
+- **Product Detail** — View details, select color/quantity, add to cart
+- **Shopping Cart** — Manage items, update quantities, remove items
+- **Login** — Authentication with test credentials and validation
+- **Checkout Flow** — Shipping info → Payment → Order review → Confirmation
+- **Drawing Pad** — Touch-based drawing canvas with color picker
+- **WebView** — URL input with history
+- **About** — App information and links
 
-```sh
-# Using npm
-npm start
+## Test Automation
 
-# OR using Yarn
-yarn start
+All interactive elements have `testID` props that map to:
+- **Android**: `content-desc` (accessibility ID)
+- **iOS**: `accessibilityIdentifier`
+
+### Key Test IDs
+
+| Screen | Element | testID |
+|--------|---------|--------|
+| Catalog | Product item | `product-item-{id}` |
+| Catalog | Sort button | `sort-button` |
+| Catalog | Cart badge | `cart-badge` |
+| Detail | Add to cart | `add-to-cart-button` |
+| Detail | Quantity +/- | `plus-button`, `minus-button` |
+| Cart | Checkout | `proceed-to-checkout` |
+| Login | Username | `username-input` |
+| Login | Password | `password-input` |
+| Login | Submit | `login-button` |
+| Checkout | Ship form | `full-name-input`, `address1-input`, etc. |
+| Payment | Card fields | `card-number-input`, `cvv-input`, etc. |
+| Review | Place order | `place-order-button` |
+| Complete | Continue | `continue-shopping-button` |
+| Tabs | Navigation | `tab-shop`, `tab-cart`, `tab-drawing`, etc. |
+
+### Test Credentials
+
+| Email | Password | Type |
+|-------|----------|------|
+| bob@example.com | password123 | Standard user |
+| alice@example.com | password123 | Locked out user |
+| visual@example.com | password123 | Visual testing user |
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# iOS (requires macOS with Xcode)
+cd ios && bundle install && bundle exec pod install && cd ..
+npx react-native run-ios
+
+# Android (requires Android SDK)
+npx react-native run-android
 ```
 
-## Step 2: Build and run your app
+## Download Pre-built Apps
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Pre-built APK (Android) and .app (iOS Simulator) are available from [GitHub Releases](https://github.com/RubyRaider/raider_test_app/releases).
 
-### Android
+To trigger a release, push a tag:
 
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+git tag v1.0.0
+git push origin v1.0.0
 ```
 
-### iOS
+## Tech Stack
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+- React Native 0.84
+- React Navigation (native stack + bottom tabs)
+- TypeScript
+- No external UI library — pure React Native components
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+## License
 
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+MIT
